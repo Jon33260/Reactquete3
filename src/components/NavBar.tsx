@@ -7,12 +7,25 @@ interface NavBarProps {
   setPokemonIndex: (index: number) => void;
   pokemonList: Pokemon[];
 }
-export default function NavBar({ pokemonList, setPokemonIndex }: NavBarProps) {
-  const [pokemonIndex, setPokemonIndex] = useState(0);
+//bien observer comment appliquer le typage avec plusieurs props
+function NavBar(
+  { setPokemonIndex, pokemonList }: NavBarProps,
+) {
+    
   return (
-    <div>
-      <NavBar setPokemonIndex={setPokemonIndex} pokemonList={pokemonList} />
-      <PokemonCard pokemon={pokemonList[pokemonIndex]} />
-    </div>
+    <nav>
+      {pokemonList.map((pokemon: Pokemon, i) => (
+        <button
+          onClick={() => setPokemonIndex(i)}
+        //   value={pokemon.name}
+          key={pokemon.name}
+          type="button"
+        >
+          {pokemon.name}
+        </button>
+      ))}
+    </nav>
   );
 }
+
+export default NavBar;
